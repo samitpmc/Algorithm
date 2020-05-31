@@ -1,0 +1,90 @@
+// OP: 11 itttkkkruam
+//a-> find in hash map -> update hash map-> a->1
+//  minlenght ->1
+  
+// hashmap character frequency.
+// variable minlenght = 0
+// already hash: minlenght with repetation 
+
+// assumption -> a-z
+
+// Algo
+// Create character frequency hash map
+// iterate through string and update hash map.
+// 
+
+#include <set>
+#include <cstring>
+#include <iostream>
+
+using namespace std;
+
+int SmallestWindow(char * str)
+{
+  std::set<int> hashMap;
+  int minLen = 1000;
+  
+  for (auto i = 0; i< strlen(str); ++i)
+  {
+       hashMap.insert(str[i] - 'a');
+  }
+  
+  int uniqueChar = hashMap.size();
+  std::cout << uniqueChar;
+  hashMap.clear(); // clear it
+  
+  while (*str != '\0' )
+  {
+    hashMap.clear();
+    bool bFound = false;
+    int minLenSubStr = 0;
+    int subStrUnique = 0;
+    for (auto i = 0; i< strlen(str); ++i)
+    {
+         if (hashMap.find(str[i] - 'a') == hashMap.end())
+         {
+           ++subStrUnique;
+           hashMap.insert(str[i] - 'a');
+        }
+        ++minLenSubStr ;
+         if (subStrUnique == uniqueChar)
+         {
+           bFound = true;
+           break;
+         }
+    }
+    if (bFound && (minLenSubStr < minLen))
+      minLen = minLenSubStr;
+    
+    ++str;
+  }
+  return minLen;
+}
+
+
+// To execute C++, please define "int main()"
+int main() 
+{
+
+  int len = SmallestWindow("amitttkkkruamitt");
+  std::cout<< "Max length(7): " << len << std::endl;
+  len = SmallestWindow("amitttkkkruam");
+  std::cout<< "Max length(11): " << len << std::endl;
+  
+  len = SmallestWindow("aba");
+  std::cout<< "Max length(2): " << len << std::endl;
+  
+  len = SmallestWindow("abaaaac");
+  std::cout<< "Max length(6): " << len << std::endl;
+  
+  len = SmallestWindow("a");
+  std::cout<< "Max length(1): " << len << std::endl;
+  
+  
+  len = SmallestWindow("baaaaaac");
+  std::cout<< "Max length(8): " << len << std::endl;
+  
+  len = SmallestWindow("cbaaaaaabbbbc");
+  std::cout<< "Max length(3): " << len << std::endl;
+  return 0;
+}
