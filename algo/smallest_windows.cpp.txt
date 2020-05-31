@@ -53,8 +53,13 @@ int SmallestWindow(char * str)
            break;
          }
     }
-    if (bFound && (minLenSubStr < minLen))
-      minLen = minLenSubStr;
+    if(!bFound)
+        break;
+    else
+    {
+        if ((minLenSubStr < minLen))
+        minLen = minLenSubStr;
+    }
     
     ++str;
   }
